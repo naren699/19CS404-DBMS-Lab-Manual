@@ -38,123 +38,274 @@ HAVING condition;
 
 **Question 1**
 --
--- Paste Question 1 here
+<pre>
+What is the total number of appointments scheduled for each day?
+
+Table: Appointments
+
+name                 type
+-------------------  ----------
+AppointmentID        INTEGER
+PatientID            INTEGER
+DoctorID             INTEGER
+AppointmentDateTime  DATETIME
+Purpose              TEXT
+Status               TEXT
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 1
+SELECT
+    DATE(AppointmentDateTime) AS
+AppointmentDate,
+    COUNT(*) AS TotalAppointments
+FROM 
+    Appointments
+GROUP BY
+    DATE(AppointmentDateTime)
+ORDER BY
+    AppointmentDate;
 ```
 
 **Output:**
 
-![Output1](output.png)
+![alt text](image.png)
 
 **Question 2**
----
--- Paste Question 2 here
+--
+<pre>
+How many appointments are scheduled for each patient?
+
+Sample table: Appointments Table
+
+name                  type
+--------------------  ----------
+AppointmentID         INTEGER
+PatientID             INTEGER
+DoctorID              INTEGER
+AppointmentDateTime   DATETIME
+Purpose               TEXT
+Status                TEXT
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 2
+SELECT
+    PatientID,
+    COUNT(*) AS TotalAppointments
+FROM
+    Appointments
+GROUP BY
+    PatientID
+ORDER BY
+    PatientID;
 ```
 
 **Output:**
 
-![Output2](output.png)
+![alt text](image-1.png)
 
 **Question 3**
----
--- Paste Question 3 here
+--
+<pre>
+Write a SQL query to Calculate the average email length (in characters) for people who lives in Mumbai city
+
+Table: customer
+
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT   
+city        TEXT
+email       TEXT
+phone       INTEGER
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 3
+SELECT
+    AVG(LENGTH(email)) AS
+avg_email_length_below_30
+FROM
+    customer
+WHERE
+    city='Mumbai';
 ```
 
 **Output:**
 
-![Output3](output.png)
+![alt text](image-2.png)
 
 **Question 4**
----
--- Paste Question 4 here
+--
+
+Write a SQL query to find What is the age difference between the youngest and oldest employee in the company.
+
+Table: __employee__
+<pre>
+name        type
+----------  ----------
+id          INTEGER
+name        TEXT
+age         INTEGER
+city        TEXT
+income      INTEGER
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 4
+SELECT
+    MAX(age) - MIN(age) AS age_difference
+FROM employee;
 ```
 
 **Output:**
 
-![Output4](output.png)
+![alt text](image-3.png)
 
 **Question 5**
----
--- Paste Question 5 here
+--
+Write a SQL query to find the maximum purchase amount.
+
+Sample table: orders
+<pre>
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 5
+ SELECT 
+    MAX(purch_amt) AS MAXIMUM
+FROM orders;
 ```
 
 **Output:**
 
-![Output5](output.png)
+![alt text](image-5.png)
 
 **Question 6**
----
--- Paste Question 6 here
+--
+Write a SQL query to calculate total purchase amount of all orders. Return total purchase amount.
+
+Sample table: orders
+<pre>
+ord_no      purch_amt   ord_date    customer_id  salesman_id
+
+----------  ----------  ----------  -----------  -----------
+
+70001       150.5       2012-10-05  3005         5002
+
+70009       270.65      2012-09-10  3001         5005
+
+70002       65.26       2012-10-05  3002         5001
+</pre>
+-- 
 
 ```sql
--- Paste your SQL code below for Question 6
+SELECT SUM(purch_amt) AS TOTAL
+FROM orders;
 ```
 
 **Output:**
 
-![Output6](output.png)
+![alt text](image-6.png)
 
 **Question 7**
----
--- Paste Question 7 here
+--
+Write the SQL query that achieves the grouping of data by occupation, calculates the minimum work hours for each occupation, and excludes occupations where the minimum work hour is not greater than 8.
+
+Sample table: employee1
+
+![alt text](image-7.png)
+-- 
 
 ```sql
--- Paste your SQL code below for Question 7
+SELECT occupation,MIN(workhour) AS
+"MIN(workhour)"
+FROM employee1
+GROUP BY occupation
+HAVING MIN(workhour) > 8;
 ```
 
 **Output:**
 
-![Output7](output.png)
+![alt text](image-8.png)
 
 **Question 8**
----
--- Paste Question 8 here
+--
+Write the SQL query that accomplishes the grouping of data by age intervals using the expression (age/5)5, calculates the minimum age for each group, and excludes groups where the minimum age is not less than 25.
+
+Sample table: customer1
+
+![alt text](image-9.png)
+-- 
 
 ```sql
--- Paste your SQL code below for Question 8
+SELECT (age/5)*5 AS age_group, MIN(age) AS "MIN(age)" FROM customer1 GROUP BY (age/5)*5 HAVING MIN(age) < 25 ORDER BY age_group;
 ```
 
 **Output:**
 
-![Output8](output.png)
+![alt text](image-10.png)
 
 **Question 9**
----
--- Paste Question 9 here
+--
+Write the SQL query that accomplishes the grouping of data by addresses, calculates the sum of salaries for each address, and excludes addresses where the total salary sum is not greater than 2000.
+
+Sample table: customer1
+
+![alt text](image-11.png)
+-- 
 
 ```sql
--- Paste your SQL code below for Question 9
+SELECT address, SUM(salary) AS
+"SUM(salary)"
+FROM customer1
+GROUP BY address
+HAVING SUM(salary)>2000;
 ```
 
 **Output:**
 
-![Output9](output.png)
+![alt text](image-12.png)
 
 **Question 10**
----
--- Paste Question 10 here
+--
+How many patients have insurance coverage valid in each year?
+
+Sample table:Insurance Table
+
+<pre>
+name               type
+-----------------  ----------
+InsuranceID        INTEGER
+PatientID          INTEGER
+InsuranceCompany   TEXT
+PolicyNumber       TEXT
+PolicyHolder       TEXT
+ValidityPeriod     TEXT
+-- 
+</pre>
 
 ```sql
--- Paste your SQL code below for Question 10
+SELECT CAST(ValidityPeriod AS INTEGER) AS ValidityYear,
+COUNT(DISTINCT PatientID) AS TotalPatients
+FROM Insurance
+GROUP BY ValidityYear
+ORDER BY ValidityYear;
 ```
 
 **Output:**
 
-![Output10](output.png)
+![alt text](image-13.png)
 
 
 ## RESULT
